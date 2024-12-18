@@ -4,27 +4,41 @@ import userData from "./User-Data";
 function Posts() {
   const [stateData, setStateData] = useState(userData);
 
+  function addLikes(index) {
+  //  event.preventDefault();
+    const newUserData = [...stateData];
+    newUserData[index].likes +=1;
+    setStateData(newUserData);
+  }
+
+  function dislike(index) {
+    const newUserData = [...stateData];
+    if (newUserData[index].likes >0 ) { 
+    newUserData[index].likes -=1;
+    setStateData(newUserData);
+    }
+  }
 
   return (
-    <div class="app-wrapper">
-      <h1 class="app-title">Posts</h1>
-      <div class="post-list">
+    <div className="app-wrapper">
+      <h1 className="app-title">Posts</h1>
+      <div className="post-list">
         {
           stateData.map((item, index) => (
-            <div key={index} class="post-item">
-              <div class="post-header">
+            <div key={index} className="post-item">
+              <div className="post-header">
                 <h2>Post {item.title} #{item.id}</h2>
-                <div class="post-social-media-stats">
-                  <span class="stats-topic">Likes: </span>
-                  <span class="post-likes">{item.likes}</span>
+                <div className="post-social-media-stats">
+                  <span className="stats-topic">Likes: </span>
+                  <span className="post-likes">{item.likes}</span>
                 </div>
               </div>
-              <p class="post-content">
+              <p className="post-content">
               {item.content}
               </p>
-              <div class="post-actions">
-                <button class="like-button">Like</button>
-                <button class="dislike-button">Dislike</button>
+              <div className="post-actions">
+                <button className="like-button" onClick={() => (addLikes(index))}>Like</button>
+                <button className="dislike-button" onClick={() => (dislike(index))}>Dislike</button>
               </div>
             </div>
           ))
